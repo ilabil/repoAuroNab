@@ -1,0 +1,3 @@
+
+Petit projet JSF pour saisir les informations d'une voiture sur une page puis qui renvoit sur une autre page avec résumé des informations en plus de la destinée de cette 
+voiture selon si son contrôle technique est OK et le kilométrage < 250000km (à la vente) ou si réparation si le contrôle est pas OK (à la réparation). Sinon elle est destinée à la casse). 
