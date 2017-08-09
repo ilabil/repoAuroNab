@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Saisie voiture</title>
@@ -15,29 +16,33 @@
 		</h1>
 		<h:form>
 			<h:outputText value="#{messages['accueil.marque']} " />
-			<h:inputText value="#{carBean.marque}"></h:inputText>
+			<h:inputText value="#{carBean.marque}" id="marque" label="#{messages['accueil.marque']}" required="true"></h:inputText>
 			<br />
-			<h:outputText value="#{messages['accueil.modele']} " />
-			<h:inputText value="#{carBean.modele}"></h:inputText>
+			<h:message for="marque" errorStyle="color:red"></h:message>		<br />
+			<h:outputText value="#{messages['accueil.modele']} " />	
+			<h:inputText value="#{carBean.modele}" id="modele" label="#{messages['accueil.modele']}" required="true"></h:inputText>
+					<br />
+			<h:message for="modele" errorStyle="color:red"></h:message>
 			<br />
 			<h:outputText value="#{messages['accueil.kilo']} " />
-			<h:inputText value="#{carBean.kilometrage}"></h:inputText>
-			<br />
+			<h:inputText value="#{carBean.kilometrage}" id="kilometrage" label="#{messages['accueil.kilo']}" required="true">
+				<f:validateLongRange minimum="10" maximum="999999"/>
+			</h:inputText>
+			<br />			
+			<h:message for="kilometrage" errorStyle="color:red"></h:message>
+			<br/>
 			<h:outputText value="#{messages['accueil.controleTechOK']} ? " />
 			<h:selectBooleanCheckbox value="#{carBean.controleTechniqueOK}" />
+			
 			<br />
 			<h:commandButton value="#{messages['accueil.envoyer']} "
 				action="fiche.xhtml" />
 			<br />
-
-
 			<h:commandButton action="#{languageController.changeLanguage('en')}"
-				value="Passer en Anglais" />
-
+				value="Passer en Anglais" immediate="true" />
 			<br />
 			<h:commandButton action="#{languageController.changeLanguage('fr')}"
-				value="Passer en Français" />
-
+				value="Passer en Français" immediate="true"  />
 
 		</h:form>
 
