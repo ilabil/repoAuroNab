@@ -16,6 +16,7 @@ public class CarBean {
 	private Long kilometrage;
 	private boolean controleTechniqueOK;
 	private Date dateImmatriculation;
+	
 
 	public String getMarque() {
 		return marque;
@@ -56,13 +57,35 @@ public class CarBean {
 	public void setDateImmatriculation(Date dateImmatriculation) {
 		this.dateImmatriculation = dateImmatriculation;
 	}
-
-
-	public String getSummary() {
-
-		
+	
+	public String priseEnCharge(boolean controleTechniqueOK,Long kilometrage) {
 		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 		String language = locale.getLanguage();
+		if(language == "fr") {
+			if(controleTechniqueOK == true && kilometrage < 250000) { 
+				return "vente";
+			}else if(controleTechniqueOK == false && kilometrage < 250000) {
+				return "réparation";
+			}else {
+				return "casse";
+			}
+		}else {
+			if(controleTechniqueOK == true && kilometrage < 250000) { 
+				return "sold";
+			}else if(controleTechniqueOK == false && kilometrage < 250000) {
+				return "repared";
+			}else {
+				return "destroyed";
+			}
+		}
+	}
+	
+		
+	public String getSummary() {
+
+		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+		String language = locale.getLanguage();
+		
 		StringBuilder sb = new StringBuilder();
 		String text = "";
 
@@ -71,7 +94,7 @@ public class CarBean {
 			sb.append(" ,");
 			sb.append(" dont le modèle est : " + this.modele);
 			sb.append(" et ayant déjà roulé " + this.kilometrage + ".");
-			sb.append("Elle est destinée à " + (this.controleTechniqueOK ? " la vente " : " la casse "));
+			sb.append("Elle est destinée à la " + this.priseEnCharge(this.controleTechniqueOK, this.kilometrage) );
 			text = sb.toString();
 			
 		}
@@ -81,7 +104,7 @@ public class CarBean {
 			sb.append(" ,");
 			sb.append(" in the " + this.modele + " version");
 			sb.append(" having been driven for " + this.kilometrage + " kilometers.");
-			sb.append(" It should be " + (this.controleTechniqueOK ? " sold" : " destroyed "));
+			sb.append(" It should be "+ this.priseEnCharge(this.controleTechniqueOK, this.kilometrage) );
 			text = sb.toString();
 		}
 		
